@@ -55,10 +55,7 @@ network supermarket_sim
         int numCashiers = default(4);
         
     submodules:
-        shop: Shop {
-            parameters:
-                arrivalInterval = 1s;  // Mean inter-arrival time (exponentially distributed)
-        }
+        shop: Shop;
         balancer: Balancer {
             parameters:
                 strategy = 0;  // 0=Round Robin, 1=Shortest Queue, 2=Random
