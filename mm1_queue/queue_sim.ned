@@ -13,8 +13,8 @@ simple Producer
         // Statistics signals
         @signal[jobGenerated](type=long);
         @signal[interArrivalTime](type=double);
-        @statistic[jobGenerated](title="Jobs Generated"; record=vector,last; interpolationmode=sample-hold);
-        @statistic[interArrivalTime](title="Inter-arrival Time"; unit=s; record=vector,histogram,mean,max; interpolationmode=none);
+        @statistic[jobGenerated](title="Jobs Generated"; record=vector);
+        @statistic[interArrivalTime](title="Inter-arrival Time"; unit=s; record=vector,mean);
         
     gates:
         output out;
@@ -31,10 +31,10 @@ simple Queue
         @signal[queueingDelay](type=double);
         @signal[queueUtilization](type=double);
         @signal[systemSize](type=long);
-        @statistic[queueLength](title="Queue Length"; record=vector,timeavg,max; interpolationmode=sample-hold);
-        @statistic[queueingDelay](title="Queueing Delay"; unit=s; record=vector,histogram,mean,max; interpolationmode=none);
-        @statistic[queueUtilization](title="Queue Utilization"; record=scalar; interpolationmode=none);
-        @statistic[systemSize](title="System Size"; record=vector,timeavg,mean; interpolationmode=sample-hold);
+        @statistic[queueLength](title="Queue Length"; record=vector);
+        @statistic[queueingDelay](title="Queueing Delay"; unit=s; record=vector,mean);
+        @statistic[queueUtilization](title="Queue Utilization"; record=vector);
+        @statistic[systemSize](title="System Size"; record=vector,mean);
         
     gates:
         input in;
@@ -51,8 +51,8 @@ simple ServiceUnit
         // Statistics signals
         @signal[serviceTime](type=double);
         @signal[utilization](type=double);
-        @statistic[serviceTime](title="Service Time"; unit=s; record=vector,histogram,mean,max; interpolationmode=none);
-        @statistic[utilization](title="Server Utilization"; record=vector,timeavg,last; interpolationmode=sample-hold);
+        @statistic[serviceTime](title="Service Time"; unit=s; record=vector,mean);
+        @statistic[utilization](title="Server Utilization"; record=vector);
         
     gates:
         input in;
@@ -68,8 +68,8 @@ simple Sink
         // Statistics signals
         @signal[jobCompleted](type=long);
         @signal[totalDelay](type=double);
-        @statistic[jobCompleted](title="Jobs Completed"; record=vector,last; interpolationmode=sample-hold);
-        @statistic[totalDelay](title="Total System Delay"; unit=s; record=vector,histogram,mean,max; interpolationmode=none);
+        @statistic[jobCompleted](title="Jobs Completed"; record=vector);
+        @statistic[totalDelay](title="Total System Delay"; unit=s; record=vector,mean);
         
     gates:
         input in;
