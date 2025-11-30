@@ -1,0 +1,74 @@
+file 13164 1764532628                                           
+version 3
+run LightLoad-0-20251130-19:57:06-443
+attr configname LightLoad
+attr datetime 20251130-19:57:06
+attr datetimef 20251130-195706
+attr experiment LightLoad
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network queue_sim
+attr processid 443
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config description "Light load: β_producer=5s, β_service=1s (ρ=0.2)"
+config *.producer.meanInterArrivalTime 5s
+config *.serviceUnit.meanServiceTime 1s
+config *.producer.warmupPeriod 100s
+config *.queue.warmupPeriod 100s
+config *.serviceUnit.warmupPeriod 100s
+config *.sink.warmupPeriod 100s
+config network queue_sim
+config sim-time-limit 600s
+config warmup-period 100s
+config repeat 5
+config **.vector-recording true
+config **.scalar-recording true
+config debug-on-errors true
+
+vector 0 queue_sim.producer jobGenerated:vector ETV
+attr recordingmode vector
+attr title "Jobs Generated"
+vector 1 queue_sim.producer interArrivalTime:vector ETV
+attr recordingmode vector
+attr title "Inter-arrival Time"
+attr unit s
+vector 2 queue_sim.queue queueLength:vector ETV
+attr recordingmode vector
+attr title "Queue Length"
+vector 3 queue_sim.queue queueingDelay:vector ETV
+attr recordingmode vector
+attr title "Queueing Delay"
+attr unit s
+vector 4 queue_sim.queue queueUtilization:vector ETV
+attr recordingmode vector
+attr title "Queue Utilization"
+vector 5 queue_sim.queue systemSize:vector ETV
+attr recordingmode vector
+attr title "System Size"
+vector 6 queue_sim.serviceUnit serviceTime:vector ETV
+attr recordingmode vector
+attr title "Service Time"
+attr unit s
+vector 7 queue_sim.serviceUnit utilization:vector ETV
+attr recordingmode vector
+attr title "Server Utilization"
+vector 8 queue_sim.sink jobCompleted:vector ETV
+attr recordingmode vector
+attr title "Jobs Completed"
+vector 9 queue_sim.sink totalDelay:vector ETV
+attr recordingmode vector
+attr title "Total System Delay"
+attr unit s
+0	1996 2476 42 232 102.502949073981 597.571039755102 96 20 115 6480 511120
+1	4472 3714 42 232 102.502949073981 597.571039755102 96 0.094842846005491 26.800501751216 497.74341406654 4999.5076122468
+2	8186 2475 43 233 102.502949073981 597.571039755102 96 19 114 6384 498256
+4	10661 26 234 234 600 600 1 1.0014885653345 1.0014885653345 1.0014885653345 1.0029793464958
+5	10687 2476 43 233 102.502949073981 597.571039755102 96 20 115 6480 511120
+
