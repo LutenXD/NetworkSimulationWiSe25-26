@@ -39,6 +39,7 @@ simple Queue
     gates:
         input in;
         output out;
+        input fromService;  // For receiving completion notifications from service unit
 }
 
 simple ServiceUnit
@@ -57,6 +58,7 @@ simple ServiceUnit
     gates:
         input in;
         output out;
+        output toQueue;  // For sending completion notifications back to queue
 }
 
 simple Sink
@@ -78,13 +80,22 @@ simple Sink
 network queue_sim
 {
     submodules:
-        producer: Producer;
-        queue: Queue;
-        serviceUnit: ServiceUnit;
-        sink: Sink;
+        producer: Producer{
+            @display("p=40,40");
+        }
+        queue: Queue{
+            @display("p=160,40");
+        }
+        serviceUnit: ServiceUnit{
+            @display("p=280,40");
+        }
+        sink: Sink{
+            @display("p=400,40");
+        }
 
     connections:
         producer.out --> queue.in;
         queue.out --> serviceUnit.in;
         serviceUnit.out --> sink.in;
+        serviceUnit.toQueue --> queue.fromService;
 }

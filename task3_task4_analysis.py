@@ -329,7 +329,7 @@ class MM1QueueAnalyzer:
                 ax1.plot(sampled_times, sampled_values, 'b-', alpha=0.7, linewidth=1)
                 ax1.set_xlabel('Time (s)')
                 ax1.set_ylabel('Queue Length')
-                ax1.set_title('Task 2 Metric 4: Queue Fill Level vs. Time\\n(Representative Configuration)')
+                ax1.set_title('Metric 4: Queue Fill Level vs. Time\\n(Representative Configuration)')
                 ax1.grid(True, alpha=0.3)
                 ax1.set_xlim(100, max(sampled_times))
             else:
@@ -337,7 +337,7 @@ class MM1QueueAnalyzer:
         else:
             ax1.text(0.5, 0.5, 'No vector files found', ha='center', va='center', transform=ax1.transAxes)
         
-        # Plot 2: Average delay vs. utilization ρ (Task 2 Metric 5)
+        # Plot 2: Average delay vs. utilization ρ (Metric 5)
         delay_means = []
         delay_stds = []
         rho_valid = []
@@ -361,14 +361,14 @@ class MM1QueueAnalyzer:
         ax2.plot(rho_analytical, delay_analytical, 'r-', linewidth=2, label='Analytical M/M/1')
         ax2.set_xlabel('Utilization ρ = λ/μ')
         ax2.set_ylabel('Average Total Delay (s)')
-        ax2.set_title('Task 2 Metric 5: Average Delay vs. Utilization')
+        ax2.set_title('Metric 5: Average Delay vs. Utilization')
         ax2.legend()
         ax2.grid(True, alpha=0.3)
         ax2.set_xlim(0, 1)
         if delay_means:
             ax2.set_ylim(0, min(max(delay_means) * 1.1, 20))  # Cap at reasonable value
         
-        # Plot 3: Queue utilization vs. ρ (Task 2 Metric 6)
+        # Plot 3: Queue utilization vs. ρ ( Metric 6)
         util_means = []
         util_stds = []
         rho_util_valid = []
@@ -390,13 +390,13 @@ class MM1QueueAnalyzer:
         ax3.plot([0, 1], [0, 1], 'r-', linewidth=2, label='Analytical (ρ)')
         ax3.set_xlabel('Theoretical ρ = λ/μ')
         ax3.set_ylabel('Measured Utilization')
-        ax3.set_title('Task 2 Metric 6: Utilization vs. ρ')
+        ax3.set_title('Metric 6: Utilization vs. ρ')
         ax3.legend()
         ax3.grid(True, alpha=0.3)
         ax3.set_xlim(0, 1)
         ax3.set_ylim(0, 1.1)
         
-        # Plot 4: Average system size vs. ρ (Task 2 Metric 7)
+        # Plot 4: Average system size vs. ρ (Metric 7)
         size_means = []
         size_stds = []
         rho_size_valid = []
@@ -419,7 +419,7 @@ class MM1QueueAnalyzer:
         ax4.plot(rho_analytical, size_analytical, 'r-', linewidth=2, label='Analytical M/M/1')
         ax4.set_xlabel('Utilization ρ = λ/μ')
         ax4.set_ylabel('Average System Size')
-        ax4.set_title('Task 2 Metric 7: System Size vs. Utilization')
+        ax4.set_title('Metric 7: System Size vs. Utilization')
         ax4.legend()
         ax4.grid(True, alpha=0.3)
         ax4.set_xlim(0, 1)
@@ -430,7 +430,7 @@ class MM1QueueAnalyzer:
                 ax4.set_yscale('log')
             ax4.set_ylim(0.1, max_size * 1.1)
         
-        plt.suptitle('MM1 Queue Analysis: Tasks 3 & 4\\nSimulation vs. Analytical Comparison', fontsize=14)
+        plt.suptitle('Simulation vs. Analytical Comparison', fontsize=14)
         plt.tight_layout()
         
         # Save plots
@@ -516,7 +516,7 @@ class MM1QueueAnalyzer:
     def run_task_3_and_4_analysis(self):
         """Main analysis workflow for Tasks 3 & 4 using Task 2 metrics"""
         print("="*60)
-        print("MM1 QUEUE ANALYSIS: TASKS 3 & 4")
+        print("MM1 QUEUE ANALYSIS")
         print("Using the 7 metrics defined in Task 2")
         print("="*60)
         

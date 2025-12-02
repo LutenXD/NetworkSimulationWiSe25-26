@@ -194,51 +194,50 @@ void Queue::initialize()
 
 void Queue::handleMessage(cMessage *msg)
 {
-    if (JobMsg *job = dynamic_cast<JobMsg*>(msg)) {
-        if (job->getServiceEndTime() > 0) {
-            // Job completed from service unit
-            EV << "Queue receives completed job " << job->getJobId() << " from service unit\n";
-            serviceUnitBusy = false;
-            currentSystemSize--;  // Job leaving system
-            updateSystemSize();
-            
-            // Forward completed job to next module (should go to sink)
-            send(job, "out");
-            
-            // Try to send next job from queue
-            tryToSendJob();
-        } else {
-            // New job arrived from producer
-            EV << "Queue receives new job " << job->getJobId() << " from producer\n";
-            
-            job->setQueueEnterTime(simTime());
-            
-            // Update queue utilization before adding job
-            updateQueueUtilization();
-            
-            jobQueue.push(job);
-            jobsQueued++;
-            if (simTime() >= warmupPeriod) {
-                jobsQueuedAfterWarmup++;
-            }
-            
-            currentSystemSize++;  // Job entering system
-            updateSystemSize();
-            
-            // Update queue length statistics
-            int currentQueueLength = jobQueue.size();
-            emit(queueLengthSignal, (long)currentQueueLength);
-            
-            if (currentQueueLength > maxQueueLength) {
-                maxQueueLength = currentQueueLength;
-            }
-            
-            EV << "Queue length: " << currentQueueLength << "\n";
-            
-            // Try to send job if service unit is free
-            tryToSendJob();
-        }
+    if (strcmp(msg->getName(), "serviceComplete") == 0) {
+        // Service unit is now available
+        EV << "Queue receives service complete notification\n";
+        serviceUnitBusy = false;
+        currentSystemSize--;  // Job leaving system
+        updateSystemSize();
+        
+        // Try to send next job from queue
+        tryToSendJob();
+        
+        delete msg;  // Clean up the notification message
     }
+    else if (JobMsg *job = dynamic_cast<JobMsg*>(msg)) {
+        // New job arrived from producer
+        EV << "Queue receives new job " << job->getJobId() << " from producer\n";
+        
+        job->setQueueEnterTime(simTime());
+        
+        // Update queue utilization before adding job
+        updateQueueUtilization();
+        
+        jobQueue.push(job);
+        jobsQueued++;
+        if (simTime() >= warmupPeriod) {
+            jobsQueuedAfterWarmup++;
+        }
+        
+        currentSystemSize++;  // Job entering system
+        updateSystemSize();
+        
+        // Update queue length statistics
+        int currentQueueLength = jobQueue.size();
+        emit(queueLengthSignal, (long)currentQueueLength);
+        
+        if (currentQueueLength > maxQueueLength) {
+            maxQueueLength = currentQueueLength;
+        }
+        
+        EV << "Queue length: " << currentQueueLength << "\n";
+        
+        // Try to send job if service unit is free
+        tryToSendJob();
+    }
+}
 }
 
 void Queue::tryToSendJob()
@@ -394,8 +393,13 @@ void ServiceUnit::handleMessage(cMessage *msg)
             totalBusyTimeAfterWarmup += serviceDuration;
         }
         
-        // Send completed job back to queue (which will forward to sink)
+        // Send completed job to sink
         send(currentJob, "out");
+        
+        // Create a notification message to queue that service is complete
+        cMessage *serviceCompleteMsg = new cMessage("serviceComplete");
+        send(serviceCompleteMsg, "toQueue");
+        
         currentJob = nullptr;
         
         lastServiceEndTime = simTime();
