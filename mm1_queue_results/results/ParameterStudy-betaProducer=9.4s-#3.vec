@@ -1,0 +1,137 @@
+version 3
+run ParameterStudy-423-20251202-16:20:07-1436
+attr configname ParameterStudy
+attr datetime 20251202-16:20:07
+attr datetimef 20251202-162007
+attr experiment ParameterStudy
+attr inifile omnetpp.ini
+attr iterationvars $betaProducer=9.4s
+attr iterationvarsd betaProducer=9.4s
+attr iterationvarsf betaProducer=9.4s-
+attr measurement $betaProducer=9.4s
+attr network queue_sim
+attr processid 1436
+attr repetition 3
+attr replication #3
+attr resultdir results
+attr runnumber 423
+attr seedset 423
+itervar betaProducer 9.4s
+config description "Parameter study: β_producer = 1s to 10s (0.1s steps), β_service = 1s, 5 repetitions"
+config *.serviceUnit.meanServiceTime 1s
+config *.producer.warmupPeriod 100s
+config *.queue.warmupPeriod 100s
+config *.serviceUnit.warmupPeriod 100s
+config *.sink.warmupPeriod 100s
+config *.producer.meanInterArrivalTime 9.4s
+config network queue_sim
+config sim-time-limit 600s
+config warmup-period 100s
+config repeat 5
+config **.vector-recording true
+config **.scalar-recording true
+config debug-on-errors true
+
+vector 0 queue_sim.producer jobGenerated:vector ETV
+attr recordingmode vector
+attr title "Jobs Generated"
+vector 1 queue_sim.producer interArrivalTime:vector ETV
+attr recordingmode vector
+attr title "Inter-arrival Time"
+attr unit s
+vector 2 queue_sim.queue queueLength:vector ETV
+attr recordingmode vector
+attr title "Queue Length"
+vector 3 queue_sim.queue queueingDelay:vector ETV
+attr recordingmode vector
+attr title "Queueing Delay"
+attr unit s
+vector 4 queue_sim.queue queueUtilization:vector ETV
+attr recordingmode vector
+attr title "Queue Utilization"
+vector 5 queue_sim.queue systemSize:vector ETV
+attr recordingmode vector
+attr title "System Size"
+vector 6 queue_sim.serviceUnit serviceTime:vector ETV
+attr recordingmode vector
+attr title "Service Time"
+attr unit s
+vector 7 queue_sim.serviceUnit utilization:vector ETV
+attr recordingmode vector
+attr title "Server Utilization"
+vector 8 queue_sim.sink jobCompleted:vector ETV
+attr recordingmode vector
+attr title "Jobs Completed"
+vector 9 queue_sim.sink totalDelay:vector ETV
+attr recordingmode vector
+attr title "Total System Delay"
+attr unit s
+0	43	106.871527556451	8
+0	49	111.943138701927	9
+0	55	114.487438762031	10
+0	61	122.86886347743	11
+0	67	126.71993042415	12
+0	73	142.584125676137	13
+0	79	159.580643209646	14
+0	82	159.714469314399	15
+0	91	167.945970999911	16
+0	97	174.246053241833	17
+0	103	212.43067568823	18
+0	109	217.567717452645	19
+0	115	218.818544208873	20
+0	121	227.430778928845	21
+0	127	232.205394148923	22
+0	133	240.150280280525	23
+0	139	251.666546199917	24
+0	145	256.507007815455	25
+0	151	272.276502166308	26
+0	154	272.492988327458	27
+0	163	280.885726868818	28
+0	169	289.782649494732	29
+0	175	296.655342349685	30
+0	181	297.11262376803	31
+0	187	302.698069329127	32
+0	193	315.566825894149	33
+0	199	328.956584917211	34
+0	205	386.498527026809	35
+0	211	393.629285382798	36
+0	214	394.20702291695	37
+0	223	401.890266110384	38
+0	229	420.203962472731	39
+0	235	435.424885098799	40
+0	238	435.494890449241	41
+0	247	440.58590990761	42
+0	253	454.260861833385	43
+0	259	470.502890894043	44
+0	265	483.390634809028	45
+0	271	487.475274162962	46
+0	277	507.946689969466	47
+0	283	513.040439022537	48
+0	289	530.334016284591	49
+0	295	532.522709707364	50
+0	301	541.169310637184	51
+0	307	565.467972382214	52
+0	313	576.975308761366	53
+0	319	583.076315522646	54
+0	325	586.109498528872	55
+0	328	588.604694332547	56
+0	337	590.692707685535	57
+0	343	598.906328096844	58
+0	349	599.356017808872	59
+1	43	106.871527556451	5.0716111454755
+1	49	111.943138701927	2.5443000601044
+1	55	114.487438762031	8.3814247153991
+1	61	122.86886347743	3.8510669467204
+1	67	126.71993042415	15.864195251987
+1	73	142.584125676137	16.996517533509
+1	79	159.580643209646	0.13382610475331
+1	82	159.714469314399	8.2315016855125
+1	91	167.945970999911	6.3000822419221
+1	97	174.246053241833	38.184622446397
+1	103	212.43067568823	5.1370417644149
+1	109	217.567717452645	1.2508267562281
+1	115	218.818544208873	8.6122347199723
+1	121	227.430778928845	4.7746152200783
+1	127	232.205394148923	7.9448861316024
+1	133	240.150280280525	11.516265919392
+1	139

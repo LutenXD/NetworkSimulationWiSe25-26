@@ -1,0 +1,95 @@
+version 3
+run ParameterStudy-196-20251202-16:20:03-1436
+attr configname ParameterStudy
+attr datetime 20251202-16:20:03
+attr datetimef 20251202-162003
+attr experiment ParameterStudy
+attr inifile omnetpp.ini
+attr iterationvars $betaProducer=4.9s
+attr iterationvarsd betaProducer=4.9s
+attr iterationvarsf betaProducer=4.9s-
+attr measurement $betaProducer=4.9s
+attr network queue_sim
+attr processid 1436
+attr repetition 1
+attr replication #1
+attr resultdir results
+attr runnumber 196
+attr seedset 196
+itervar betaProducer 4.9s
+config description "Parameter study: β_producer = 1s to 10s (0.1s steps), β_service = 1s, 5 repetitions"
+config *.serviceUnit.meanServiceTime 1s
+config *.producer.warmupPeriod 100s
+config *.queue.warmupPeriod 100s
+config *.serviceUnit.warmupPeriod 100s
+config *.sink.warmupPeriod 100s
+config *.producer.meanInterArrivalTime 4.9s
+config network queue_sim
+config sim-time-limit 600s
+config warmup-period 100s
+config repeat 5
+config **.vector-recording true
+config **.scalar-recording true
+config debug-on-errors true
+
+par queue_sim.producer typename "\"Producer\""
+par queue_sim.producer meanInterArrivalTime 4.9s
+attr unit s
+par queue_sim.producer warmupPeriod 100s
+attr unit s
+scalar queue_sim.producer jobsGenerated 121
+scalar queue_sim.producer jobsGeneratedAfterWarmup 101
+scalar queue_sim.producer meanInterArrivalTime 4.9
+scalar queue_sim.producer avgInterArrivalTime 5.0938740922095
+scalar queue_sim.producer interArrivalTime:mean 5.0938740922095
+attr recordingmode mean
+attr title "Inter-arrival Time, mean"
+attr unit s
+par queue_sim.queue typename "\"Queue\""
+par queue_sim.queue warmupPeriod 100s
+attr unit s
+scalar queue_sim.queue jobsQueued 121
+scalar queue_sim.queue jobsQueuedAfterWarmup 101
+scalar queue_sim.queue maxQueueLength 3
+scalar queue_sim.queue avgQueueingDelay 0.29069197752069
+scalar queue_sim.queue queueUtilization 0.048614953666186
+scalar queue_sim.queue avgSystemSize 0.8976897689769
+scalar queue_sim.queue finalQueueLength 0
+scalar queue_sim.queue systemSize:mean 0.8976897689769
+attr recordingmode mean
+attr title "System Size, mean"
+scalar queue_sim.queue queueingDelay:mean 0.29069197752069
+attr recordingmode mean
+attr title "Queueing Delay, mean"
+attr unit s
+par queue_sim.serviceUnit typename "\"ServiceUnit\""
+par queue_sim.serviceUnit meanServiceTime 1s
+attr unit s
+par queue_sim.serviceUnit warmupPeriod 100s
+attr unit s
+scalar queue_sim.serviceUnit jobsServed 121
+scalar queue_sim.serviceUnit jobsServedAfterWarmup 101
+scalar queue_sim.serviceUnit meanServiceTime 1
+scalar queue_sim.serviceUnit avgServiceTime 1.036655773656
+scalar queue_sim.serviceUnit avgServiceTimeAfterWarmup 1.0467826961084
+scalar queue_sim.serviceUnit totalBusyTime 125.43534861238
+scalar queue_sim.serviceUnit utilization 20.905891435397
+scalar queue_sim.serviceUnit utilizationAfterWarmup 21.145010461389
+scalar queue_sim.serviceUnit serviceTime:mean 1.0467826961084
+attr recordingmode mean
+attr title "Service Time, mean"
+attr unit s
+par queue_sim.sink typename "\"Sink\""
+par queue_sim.sink warmupPeriod 100s
+attr unit s
+scalar queue_sim.sink jobsCompleted 121
+scalar queue_sim.sink jobsCompletedAfterWarmup 101
+scalar queue_sim.sink avgSystemDelay 1.346270557081
+scalar queue_sim.sink avgSystemDelayAfterWarmup 1.3374746736291
+scalar queue_sim.sink totalSystemDelay 162.8987374068
+scalar queue_sim.sink totalDelay:mean 1.3374746736291
+attr recordingmode mean
+attr title "Total System Delay, mean"
+attr unit s
+par queue_sim typename "\"queue_sim\""
+

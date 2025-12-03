@@ -99,9 +99,14 @@ class MM1QueueAnalyzer:
             if avg_total_delay == 0:
                 avg_total_delay = extract_scalar(r'scalar queue_sim\.sink avgSystemDelay ([\d.]+)')
             
-            # Task 2 Metric 6: Queue utilization
+            # Task 2 Metric 6: Queue utilization and Server utilization
             queue_utilization = extract_scalar(r'scalar queue_sim\.queue queueUtilization ([\d.]+)')
-            server_utilization = extract_scalar(r'scalar queue_sim\.serviceUnit utilization ([\d.]+)')
+            # Convert queue utilization from fraction to percentage to match server utilization
+            queue_utilization = queue_utilization * 100 if queue_utilization > 0 else 0
+            server_utilization = extract_scalar(r'scalar queue_sim\.serviceUnit utilizationAfterWarmup ([\d.]+)')
+            if server_utilization == 0:
+                # Fallback to overall utilization if warmup-specific not available
+                server_utilization = extract_scalar(r'scalar queue_sim\.serviceUnit utilization ([\d.]+)')
             
             # Task 2 Metric 7: Average system size
             avg_system_size = extract_scalar(r'scalar queue_sim\.queue avgSystemSize ([\d.]+)')
@@ -374,20 +379,20 @@ class MM1QueueAnalyzer:
         rho_util_valid = []
         
         for r in rho_values:
-            # Use server utilization as it's more reliable than queue utilization
-            util_mean = aggregated[r]['metric6_server_utilization_mean']
-            util_std = aggregated[r]['metric6_server_utilization_std']
-            if 0 <= util_mean <= 1.2:  # Valid utilization range
+            # Use queue utilization for this plot
+            util_mean = aggregated[r]['metric6_queue_utilization_mean']
+            util_std = aggregated[r]['metric6_queue_utilization_std']
+            if 0 <= util_mean <= 120:  # Valid utilization range (percentage)
                 util_means.append(util_mean)
                 util_stds.append(util_std)
                 rho_util_valid.append(r)
         
         if rho_util_valid:
             ax3.errorbar(rho_util_valid, util_means, yerr=util_stds, fmt='s', alpha=0.7, 
-                        label='Simulation (Server)', capsize=3, markersize=5)
+                        label='Simulation (Queue)', capsize=3, markersize=5)
         
-        # Analytical line (utilization should equal ρ)
-        ax3.plot([0, 1], [0, 1], 'r-', linewidth=2, label='Analytical (ρ)')
+        # Analytical line (queue utilization should equal ρ * 100 since we're using percentages)
+        ax3.plot([0, 1], [0, 100], 'r-', linewidth=2, label='Analytical (ρ×100%)')
         ax3.set_xlabel('Theoretical ρ = λ/μ')
         ax3.set_ylabel('Measured Utilization')
         ax3.set_title('Metric 6: Utilization vs. ρ')
@@ -573,10 +578,10 @@ class MM1QueueAnalyzer:
         print("\\n" + "="*60)
         print("KEY INSIGHTS FOR TASKS 3 & 4")
         print("="*60)
-        print("Task 3 ✓ - Successfully calculated custom scalar ρ = λμ⁻¹")
-        print("Task 3 ✓ - Generated 4 required plots with simulation data") 
-        print("Task 4 ✓ - Added analytical M/M/1 theory lines to plots")
-        print("Task 4 ✓ - Compared simulation vs analytical results")
+        print("Task 3 - Successfully calculated custom scalar ρ = λμ⁻¹")
+        print("Task 3 - Generated 4 required plots with simulation data") 
+        print("Task 4 - Added analytical M/M/1 theory lines to plots")
+        print("Task 4 - Compared simulation vs analytical results")
         print("\\nNext steps:")
         print("1. Examine plots for agreement between simulation and theory")
         print("2. Investigate any large discrepancies")

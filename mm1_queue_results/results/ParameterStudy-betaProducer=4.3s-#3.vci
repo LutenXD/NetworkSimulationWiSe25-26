@@ -1,0 +1,80 @@
+file 48887 1764692403                                           
+version 3
+run ParameterStudy-168-20251202-16:20:03-1436
+attr configname ParameterStudy
+attr datetime 20251202-16:20:03
+attr datetimef 20251202-162003
+attr experiment ParameterStudy
+attr inifile omnetpp.ini
+attr iterationvars $betaProducer=4.3s
+attr iterationvarsd betaProducer=4.3s
+attr iterationvarsf betaProducer=4.3s-
+attr measurement $betaProducer=4.3s
+attr network queue_sim
+attr processid 1436
+attr repetition 3
+attr replication #3
+attr resultdir results
+attr runnumber 168
+attr seedset 168
+itervar betaProducer 4.3s
+config description "Parameter study: β_producer = 1s to 10s (0.1s steps), β_service = 1s, 5 repetitions"
+config *.serviceUnit.meanServiceTime 1s
+config *.producer.warmupPeriod 100s
+config *.queue.warmupPeriod 100s
+config *.serviceUnit.warmupPeriod 100s
+config *.sink.warmupPeriod 100s
+config *.producer.meanInterArrivalTime 4.3s
+config network queue_sim
+config sim-time-limit 600s
+config warmup-period 100s
+config repeat 5
+config **.vector-recording true
+config **.scalar-recording true
+config debug-on-errors true
+
+vector 0 queue_sim.producer jobGenerated:vector ETV
+attr recordingmode vector
+attr title "Jobs Generated"
+vector 1 queue_sim.producer interArrivalTime:vector ETV
+attr recordingmode vector
+attr title "Inter-arrival Time"
+attr unit s
+vector 2 queue_sim.queue queueLength:vector ETV
+attr recordingmode vector
+attr title "Queue Length"
+vector 3 queue_sim.queue queueingDelay:vector ETV
+attr recordingmode vector
+attr title "Queueing Delay"
+attr unit s
+vector 4 queue_sim.queue queueUtilization:vector ETV
+attr recordingmode vector
+attr title "Queue Utilization"
+vector 5 queue_sim.queue systemSize:vector ETV
+attr recordingmode vector
+attr title "System Size"
+vector 6 queue_sim.serviceUnit serviceTime:vector ETV
+attr recordingmode vector
+attr title "Service Time"
+attr unit s
+vector 7 queue_sim.serviceUnit utilization:vector ETV
+attr recordingmode vector
+attr title "Server Utilization"
+vector 8 queue_sim.sink jobCompleted:vector ETV
+attr recordingmode vector
+attr title "Jobs Completed"
+vector 9 queue_sim.sink totalDelay:vector ETV
+attr recordingmode vector
+attr title "Total System Delay"
+attr unit s
+0	2145 3409 103 877 104.174479833979 599.09478983114 130 18 147 10725 1067885
+1	5554 5068 103 877 104.174479833979 599.09478983114 130 0.0064223337677994 17.047464937829 500.53565659724 3628.5035040762
+2	10622 6463 104 878 104.174479833979 599.09478983114 260 0 2 144 158
+3	17085 3595 104 878 104.174479833979 599.09478983114 130 0 5.327176622954 40.958449423493 99.370645324282
+4	20680 28 883 883 600 600 1 0.070442602425488 0.070442602425488 0.070442602425488 0.0049621602364754
+5	20708 9697 104 882 104.174479833979 599.462605321878 390 0 3 337 449
+6	30405 5119 105 879 104.174479833979 599.09478983114 130 0.023127781275958 4.2576028685034 150.51258553183 311.01716029979
+7	35524 5039 106 880 105.163749050883 599.462605321878 130 13.543225673073 28.973731545369 3356.1916182808 88232.655146502
+8	40563 3412 107 881 105.163749050883 599.462605321878 130 18 147 10725 1067885
+9	43975 4911 107 881 105.163749050883 599.462605321878 130 0.023127781276 6.26979246894 191.47103495532 479.78035697887
+
