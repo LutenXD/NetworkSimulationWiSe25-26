@@ -19,6 +19,16 @@ simple Junction
 {
     parameters:
         @display("i=block/routing");
+        string junctionMode = default("queue"); // Junction operation mode: "queue", "circle", or "roundrobin"
+        
+        @signal[queueLength](type="long");
+        @signal[junctionProcessingTime](type="simtime_t");
+        @signal[vehicleCount](type="long");
+        
+        @statistic[queueLength](title="Queue Length"; source="queueLength"; record=vector,stats; interpolationmode=sample-hold);
+        @statistic[junctionProcessingTime](title="Junction Processing Time"; source="junctionProcessingTime"; record=vector,stats);
+        @statistic[vehicleCount](title="Vehicle Count"; source="vehicleCount"; record=vector,stats);
+        
     gates:
         inout north;
         inout east;

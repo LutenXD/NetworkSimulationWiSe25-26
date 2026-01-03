@@ -17,4 +17,10 @@ message Vehicle {
     string srcEndpoint;
     string dstEndpoint;
     unsigned int vehNumber;
+    simtime_t startTime;          // When the vehicle was created
+    simtime_t totalJunctionTime;  // Total time spent at all junctions
+    unsigned int junctionCount;   // Number of junctions visited
 }
+
+cd /workspaces/skeleton/cms_detour/simulations ; opp_run -l ../libcms_sheet2_detour_v2_skeleton.so -l /opt/veins-5.3.1/src/libveins.so -n ../src:.:/opt/veins-5.3.1/src/veins -u Cmdenv -c DistributedForwarding omnetpp.ini
+cd /workspaces/nwsim_project/simulations/nwsim_project ; opp_run -l ..

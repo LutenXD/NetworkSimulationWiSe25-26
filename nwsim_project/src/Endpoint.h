@@ -31,7 +31,13 @@ protected:
 private:
     cMessage* spawnTimer = nullptr;
     static unsigned int vehicleCounter;
+    static std::vector<std::string> allEndpoints;
     static std::map<char, std::string> directionMapping;
+    
+    // Statistics signals
+    simsignal_t travelTimeSignal;
+    simsignal_t junctionTimeSignal;
+    simsignal_t junctionCountSignal;
 
     void spawnVehicle();
     std::string getDstEndpoint();

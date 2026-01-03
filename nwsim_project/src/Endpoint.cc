@@ -15,15 +15,15 @@
 
 #include "Endpoint.h"
 #include "Vehicle_m.h"
+#include <random>
+#include <algorithm>
 
 Define_Module(Endpoint);
 
 unsigned int Endpoint::vehicleCounter = 0;
-std::map<char, std::string> Endpoint::directionMapping = {
-    {'N', "S"},
-    {'S', "N"},
-    {'E', "W"},
-    {'W', "E"},
+std::vector<std::string> Endpoint::allEndpoints = {
+    "EndNW", "EndNE", "EndEN", "EndES",
+    "EndSE", "EndSW", "EndWS", "EndWN"
 };
 
 Endpoint::~Endpoint()
@@ -34,6 +34,12 @@ Endpoint::~Endpoint()
 void Endpoint::initialize()
 {
     spawnTimer = new cMessage("spawnTimer");
+    
+    // Initialize statistics signals
+    travelTimeSignal = registerSignal("travelTime");
+    junctionTimeSignal = registerSignal("junctionTime");
+    junctionCountSignal = registerSignal("junctionCount");
+    
     simtime_t spawnInterval = par("spawnInterval");
     simtime_t spawnOffset = par("spawnOffset");
     if (spawnInterval > 0) {
@@ -53,6 +59,21 @@ void Endpoint::handleMessage(cMessage* msg)
     else if (dynamic_cast<Vehicle*>(msg)) {
         Vehicle* veh = dynamic_cast<Vehicle*>(msg);
         ASSERT(std::string(veh->getDstEndpoint()) == std::string(getName()));
+        
+        // Calculate and emit travel time statistics
+        simtime_t travelTime = simTime() - veh->getStartTime();
+        simtime_t totalJunctionTime = veh->getTotalJunctionTime();
+        long junctionCount = veh->getJunctionCount();
+        
+        emit(travelTimeSignal, travelTime);
+        emit(junctionTimeSignal, totalJunctionTime);
+        emit(junctionCountSignal, junctionCount);
+        
+        EV << "Vehicle " << veh->getVehNumber() << " arrived at " << getName() 
+           << ". Travel time: " << travelTime << "s, Junction time: " << totalJunctionTime 
+           << "s, Junctions visited: " << junctionCount << endl;
+           
+        delete msg;
     }
 }
 
@@ -64,14 +85,30 @@ void Endpoint::spawnVehicle()
     std::string dstEndpoint = getDstEndpoint();
     veh->setDstEndpoint(dstEndpoint.c_str());
     veh->setName(std::string("for " + dstEndpoint).c_str());
+    
+    // Initialize timing information
+    veh->setStartTime(simTime());
+    veh->setTotalJunctionTime(0);
+    veh->setJunctionCount(0);
+    
+    EV << "Spawning vehicle " << veh->getVehNumber() << " from " << getName() 
+       << " to " << dstEndpoint << " at time " << simTime() << endl;
+       
     send(veh, "conn$o");
 }
 
 std::string Endpoint::getDstEndpoint()
 {
     std::string myName = getName();
-    std::string dstName = "End" + directionMapping.at(myName.at(3));
-    dstName.push_back(myName.at(4));
-    ASSERT(myName.size() == dstName.size());
-    return dstName;
+
+    // Create a copy of all endpoints and remove the current endpoint
+    std::vector<std::string> availableEndpoints = allEndpoints;
+    availableEndpoints.erase(
+        std::remove(availableEndpoints.begin(), availableEndpoints.end(), myName),
+        availableEndpoints.end()
+    );
+
+    // Use OMNeT++'s random number generator for reproducibility
+    int randomIndex = intuniform(0, availableEndpoints.size() - 1);
+    return availableEndpoints[randomIndex];
 }

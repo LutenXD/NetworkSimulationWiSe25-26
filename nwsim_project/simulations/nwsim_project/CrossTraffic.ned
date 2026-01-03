@@ -11,9 +11,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
+//
 
-package nwsim_project.simulations.nwsim_project;
+// package declaration removed to match directory loading
 
 import ned.DelayChannel;
 import nwsim_project.Junction;

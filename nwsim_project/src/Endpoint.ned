@@ -21,6 +21,15 @@ simple Endpoint
         @display("i=block/rxtx");
         volatile double spawnOffset @unit(s) = default(0s);
         volatile double spawnInterval @unit(s) = default(-1s);
-        gates:
+        
+        @signal[travelTime](type="simtime_t");
+        @signal[junctionTime](type="simtime_t");
+        @signal[junctionCount](type="long");
+        
+        @statistic[travelTime](title="Vehicle Travel Time"; source="travelTime"; record=vector,stats);
+        @statistic[junctionTime](title="Total Junction Time per Vehicle"; source="junctionTime"; record=vector,stats);
+        @statistic[junctionCount](title="Junctions Visited per Vehicle"; source="junctionCount"; record=vector,stats);
+        
+    gates:
         inout conn;
 }
