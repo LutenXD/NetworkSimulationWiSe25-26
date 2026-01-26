@@ -77,6 +77,10 @@ private:
     std::string getCounterClockwiseExit(const std::string& arrivalGate);
     bool isExitJunction(const std::string& destination);
     std::string getDirectionFromGate(const std::string& gateName);
+    // Routing helpers for choosing shortest path around roundabout
+    std::string getJunctionForEndpoint(const std::string& endpoint);
+    std::string getClockwiseExit(const std::string& arrivalGate);
+    std::string getBestNextGateTowards(const std::string& destination, const std::string& arrivalGate);
     
     // Queue mode methods
     void processVehicleQueue();

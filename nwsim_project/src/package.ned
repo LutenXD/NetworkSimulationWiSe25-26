@@ -1,3 +1,3 @@
-package nwsim_project;
+package src;
 
 @license(LGPL);

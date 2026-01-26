@@ -1,3 +1,3 @@
-package nwsim_project.simulations;
+package simulations;
 
 @license(LGPL);

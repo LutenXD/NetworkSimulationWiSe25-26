@@ -1,0 +1,638 @@
+version 3
+run VeryHighLoad_RoundRobin-10-20260125-17:44:50-1398
+attr configname VeryHighLoad_RoundRobin
+attr datetime 20260125-17:44:50
+attr datetimef 20260125-174450
+attr experiment VeryHighLoad_RoundRobin
+attr inifile simulations/nwsim_project/omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network CrossTraffic
+attr processid 1398
+attr repetition 10
+attr replication #10
+attr resultdir results
+attr runnumber 10
+attr seedset 10
+config description "Very High Load - Round-Robin Mode (200% more traffic)"
+config *.Junc*.junctionMode "\"roundrobin\""
+config *.EndNW.spawnInterval exponential(267s)
+config *.EndNE.spawnInterval exponential(400s)
+config *.EndEN.spawnInterval exponential(333s)
+config *.EndES.spawnInterval exponential(500s)
+config *.EndSE.spawnInterval exponential(300s)
+config *.EndSW.spawnInterval exponential(367s)
+config *.EndWS.spawnInterval exponential(433s)
+config *.EndWN.spawnInterval exponential(467s)
+config network CrossTraffic
+config sim-time-limit 20000s
+config warmup-period 1000s
+config repeat 50
+config **.scalar-recording true
+config **.vector-recording true
+config *.Junc*.junctionMode "\"queue\""
+config *.EndNW.spawnInterval exponential(800s)
+config *.EndNE.spawnInterval exponential(1200s)
+config *.EndEN.spawnInterval exponential(1000s)
+config *.EndES.spawnInterval exponential(1500s)
+config *.EndSE.spawnInterval exponential(900s)
+config *.EndSW.spawnInterval exponential(1100s)
+config *.EndWS.spawnInterval exponential(1300s)
+config *.EndWN.spawnInterval exponential(1400s)
+
+par CrossTraffic.JuncNW.east$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNW.east$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNW.east$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNE.west$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNE.west$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNE.west$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNW.south$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNW.south$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNW.south$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSW.north$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSW.north$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSW.north$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNE.south$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNE.south$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNE.south$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSE.north$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSE.north$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSE.north$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSW.east$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSW.east$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSW.east$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSE.west$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSE.west$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSE.west$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndNW.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndNW.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndNW.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNW.north$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNW.north$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNW.north$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndNE.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndNE.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndNE.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNE.north$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNE.north$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNE.north$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndEN.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndEN.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndEN.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNE.east$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNE.east$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNE.east$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndES.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndES.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndES.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSE.east$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSE.east$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSE.east$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndSE.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndSE.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndSE.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSE.south$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSE.south$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSE.south$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndSW.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndSW.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndSW.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSW.south$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSW.south$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSW.south$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndWS.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndWS.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndWS.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncSW.west$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncSW.west$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncSW.west$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.EndWN.conn$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.EndWN.conn$o.channel disabled false
+attr mutable ""
+par CrossTraffic.EndWN.conn$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNW.west$o.channel typename "\"ned.DelayChannel\""
+par CrossTraffic.JuncNW.west$o.channel disabled false
+attr mutable ""
+par CrossTraffic.JuncNW.west$o.channel delay 100s
+attr mutable ""
+attr unit s
+par CrossTraffic.JuncNW typename "\"src.Junction\""
+par CrossTraffic.JuncNW junctionMode "\"roundrobin\""
+statistic CrossTraffic.JuncNW vehicleCount:stats
+field count 236
+field mean 4690.9491525424
+field stddev 124.3037698172
+field min 4462
+field max 4905
+field sum 1107064
+field sqrsum 5196812018
+attr recordingmode stats
+attr source vehicleCount
+attr title "Vehicle Count"
+statistic CrossTraffic.JuncNW junctionProcessingTime:stats
+field count 236
+field mean 22.773120601882
+field stddev 25.120337273653
+field min 0
+field max 88.846419429294
+field sum 5374.4564620441
+field sqrsum 270685.51119408
+attr recordingmode stats
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+statistic CrossTraffic.JuncNW queueLength:stats
+field count 1422
+field mean 0.36919831223629
+field stddev 0.60328148285457
+field min 0
+field max 3
+field sum 525
+field sqrsum 711
+attr interpolationmode sample-hold
+attr recordingmode stats
+attr source queueLength
+attr title "Queue Length"
+par CrossTraffic.JuncNE typename "\"src.Junction\""
+par CrossTraffic.JuncNE junctionMode "\"roundrobin\""
+statistic CrossTraffic.JuncNE vehicleCount:stats
+field count 251
+field mean 4684.5458167331
+field stddev 126.0147645811
+field min 4465
+field max 4906
+field sum 1175821
+field sqrsum 5512157277
+attr recordingmode stats
+attr source vehicleCount
+attr title "Vehicle Count"
+statistic CrossTraffic.JuncNE junctionProcessingTime:stats
+field count 251
+field mean 26.596636592965
+field stddev 27.851867157644
+field min 0
+field max 89.910539042721
+field sum 6675.7557848343
+field sqrsum 371484.27663438
+attr recordingmode stats
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+statistic CrossTraffic.JuncNE queueLength:stats
+field count 1432
+field mean 0.45879888268156
+field stddev 0.71792908852845
+field min 0
+field max 5
+field sum 657
+field sqrsum 1039
+attr interpolationmode sample-hold
+attr recordingmode stats
+attr source queueLength
+attr title "Queue Length"
+par CrossTraffic.JuncSE typename "\"src.Junction\""
+par CrossTraffic.JuncSE junctionMode "\"roundrobin\""
+statistic CrossTraffic.JuncSE vehicleCount:stats
+field count 216
+field mean 4678.2268518519
+field stddev 128.26567421801
+field min 4470
+field max 4907
+field sum 1010497
+field sqrsum 4730871397
+attr recordingmode stats
+attr source vehicleCount
+attr title "Vehicle Count"
+statistic CrossTraffic.JuncSE junctionProcessingTime:stats
+field count 216
+field mean 26.345175389605
+field stddev 25.732272539294
+field min 0
+field max 89.668648766632
+field sum 5690.5578841546
+field sqrsum 292280.9632806
+attr recordingmode stats
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+statistic CrossTraffic.JuncSE queueLength:stats
+field count 1413
+field mean 0.39348903043171
+field stddev 0.63826301284767
+field min 0
+field max 4
+field sum 556
+field sqrsum 794
+attr interpolationmode sample-hold
+attr recordingmode stats
+attr source queueLength
+attr title "Queue Length"
+par CrossTraffic.JuncSW typename "\"src.Junction\""
+par CrossTraffic.JuncSW junctionMode "\"roundrobin\""
+statistic CrossTraffic.JuncSW vehicleCount:stats
+field count 214
+field mean 4691.0327102804
+field stddev 126.07145993253
+field min 4467
+field max 4904
+field sum 1003881
+field sqrsum 4712624033
+attr recordingmode stats
+attr source vehicleCount
+attr title "Vehicle Count"
+statistic CrossTraffic.JuncSW junctionProcessingTime:stats
+field count 214
+field mean 27.192834198681
+field stddev 27.742254546975
+field min 0
+field max 89.993048302884
+field sum 5819.2665185177
+field sqrsum 322174.11200136
+attr recordingmode stats
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+statistic CrossTraffic.JuncSW queueLength:stats
+field count 1411
+field mean 0.39121190644933
+field stddev 0.60614526009893
+field min 0
+field max 3
+field sum 552
+field sqrsum 734
+attr interpolationmode sample-hold
+attr recordingmode stats
+attr source queueLength
+attr title "Queue Length"
+par CrossTraffic.EndNW typename "\"src.Endpoint\""
+par CrossTraffic.EndNW spawnOffset 0s
+attr unit s
+par CrossTraffic.EndNW spawnInterval exponential(267s)
+attr unit s
+statistic CrossTraffic.EndNW junctionCount:stats
+field count 58
+field mean 2.1034482758621
+field stddev 0.64043995767202
+field min 1
+field max 3
+field sum 122
+field sqrsum 280
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndNW junctionTime:stats
+field count 58
+field mean 54.048936055082
+field stddev 38.759703726206
+field min 0
+field max 134.61789581503
+field sum 3134.8382911947
+field sqrsum 255066.60842157
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndNW travelTime:stats
+field count 58
+field mean 364.39376364129
+field stddev 82.796970746364
+field min 200
+field max 534.61789581503
+field sum 21134.838291195
+field sqrsum 8092157.5556706
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndNE typename "\"src.Endpoint\""
+par CrossTraffic.EndNE spawnOffset 0s
+attr unit s
+par CrossTraffic.EndNE spawnInterval exponential(400s)
+attr unit s
+statistic CrossTraffic.EndNE junctionCount:stats
+field count 69
+field mean 2.0869565217391
+field stddev 0.70166043477518
+field min 1
+field max 3
+field sum 144
+field sqrsum 334
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndNE junctionTime:stats
+field count 69
+field mean 54.111223520578
+field stddev 35.8380898821
+field min 0
+field max 138.99412032531
+field sum 3733.6744229199
+field sqrsum 289370.76192671
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndNE travelTime:stats
+field count 69
+field mean 362.80687569449
+field stddev 87.367643487801
+field min 200
+field max 538.99412032531
+field sum 25033.67442292
+field sqrsum 9601440.3532782
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndEN typename "\"src.Endpoint\""
+par CrossTraffic.EndEN spawnOffset 0s
+attr unit s
+par CrossTraffic.EndEN spawnInterval exponential(333s)
+attr unit s
+statistic CrossTraffic.EndEN junctionCount:stats
+field count 61
+field mean 2.1475409836066
+field stddev 0.62812062466192
+field min 1
+field max 3
+field sum 131
+field sqrsum 305
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndEN junctionTime:stats
+field count 61
+field mean 51.858098332226
+field stddev 32.355088847452
+field min 0
+field max 105.92161468255
+field sum 3163.3439982658
+field sqrsum 226856.11058032
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndEN travelTime:stats
+field count 61
+field mean 366.61219669288
+field stddev 74.600285980801
+field min 200
+field max 505.92161468255
+field sum 22363.343998266
+field sqrsum 8532586.8287078
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndES typename "\"src.Endpoint\""
+par CrossTraffic.EndES spawnOffset 0s
+attr unit s
+par CrossTraffic.EndES spawnInterval exponential(500s)
+attr unit s
+statistic CrossTraffic.EndES junctionCount:stats
+field count 49
+field mean 2.1428571428571
+field stddev 0.70710678118655
+field min 1
+field max 3
+field sum 105
+field sqrsum 249
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndES junctionTime:stats
+field count 49
+field mean 54.579865952929
+field stddev 37.037865406077
+field min 0
+field max 132.742506942
+field sum 2674.4134316935
+field sqrsum 211815.6933488
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndES travelTime:stats
+field count 49
+field mean 368.86558023864
+field stddev 79.902372274545
+field min 207.56994945559
+field max 515.5901361561
+field sum 18074.413431694
+field sqrsum 6973479.6745196
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndSE typename "\"src.Endpoint\""
+par CrossTraffic.EndSE spawnOffset 0s
+attr unit s
+par CrossTraffic.EndSE spawnInterval exponential(300s)
+attr unit s
+statistic CrossTraffic.EndSE junctionCount:stats
+field count 40
+field mean 2.025
+field stddev 0.6196566460342
+field min 1
+field max 3
+field sum 81
+field sqrsum 179
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndSE junctionTime:stats
+field count 40
+field mean 56.645850380926
+field stddev 38.434910666485
+field min 0
+field max 130.60013922525
+field sum 2265.8340152371
+field sqrsum 185962.54657482
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndSE travelTime:stats
+field count 40
+field mean 359.14585038093
+field stddev 81.500127751131
+field min 200
+field max 507.52226305548
+field sum 14365.834015237
+field sqrsum 5418478.2359481
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndSW typename "\"src.Endpoint\""
+par CrossTraffic.EndSW spawnOffset 0s
+attr unit s
+par CrossTraffic.EndSW spawnInterval exponential(367s)
+attr unit s
+statistic CrossTraffic.EndSW junctionCount:stats
+field count 46
+field mean 2.1739130434783
+field stddev 0.56976984928954
+field min 1
+field max 3
+field sum 100
+field sqrsum 232
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndSW junctionTime:stats
+field count 46
+field mean 53.751337107735
+field stddev 38.450134297147
+field min 0
+field max 132.30654636283
+field sum 2472.5615069558
+field sqrsum 199432.06431608
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndSW travelTime:stats
+field count 46
+field mean 371.14264145556
+field stddev 74.440208544297
+field min 200
+field max 532.30654636283
+field sum 17072.561506956
+field sqrsum 6585716.0832694
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndWS typename "\"src.Endpoint\""
+par CrossTraffic.EndWS spawnOffset 0s
+attr unit s
+par CrossTraffic.EndWS spawnInterval exponential(433s)
+attr unit s
+statistic CrossTraffic.EndWS junctionCount:stats
+field count 52
+field mean 2
+field stddev 0.71400554729542
+field min 1
+field max 3
+field sum 104
+field sqrsum 234
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndWS junctionTime:stats
+field count 52
+field mean 51.061731170833
+field stddev 31.516271311913
+field min 0
+field max 113.24606853303
+field sum 2655.2100208833
+field sqrsum 186236.66351616
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndWS travelTime:stats
+field count 52
+field mean 351.06173117083
+field stddev 80.415993442102
+field min 200
+field max 513.24606853303
+field sum 18255.210020883
+field sqrsum 6738508.9648837
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic.EndWN typename "\"src.Endpoint\""
+par CrossTraffic.EndWN spawnOffset 0s
+attr unit s
+par CrossTraffic.EndWN spawnInterval exponential(467s)
+attr unit s
+statistic CrossTraffic.EndWN junctionCount:stats
+field count 62
+field mean 2.1129032258065
+field stddev 0.65548977333002
+field min 1
+field max 3
+field sum 131
+field sqrsum 303
+attr recordingmode stats
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+statistic CrossTraffic.EndWN junctionTime:stats
+field count 62
+field mean 56.579529443674
+field stddev 38.382748908386
+field min 0
+field max 138.65664753447
+field sum 3507.9308255078
+field sqrsum 288344.4356678
+attr recordingmode stats
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+statistic CrossTraffic.EndWN travelTime:stats
+field count 62
+field mean 367.86985202432
+field stddev 84.963863592407
+field min 200
+field max 522.47108744564
+field sum 22807.930825508
+field sqrsum 8830700.4828699
+attr recordingmode stats
+attr source travelTime
+attr title "Vehicle Travel Time"
+par CrossTraffic typename "\"simulations.nwsim_project.CrossTraffic\""
+

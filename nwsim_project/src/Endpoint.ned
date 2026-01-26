@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package nwsim_project;
+package src;
 
 simple Endpoint
 {

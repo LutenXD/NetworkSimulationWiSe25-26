@@ -1,0 +1,230 @@
+file 193807 1769425230                                          
+version 3
+run HighLoad_RoundRobin-30-20260126-11:00:30-303
+attr configname HighLoad_RoundRobin
+attr datetime 20260126-11:00:30
+attr datetimef 20260126-110030
+attr experiment HighLoad_RoundRobin
+attr inifile simulations/nwsim_project/omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network CrossTraffic
+attr processid 303
+attr repetition 30
+attr replication #30
+attr resultdir results
+attr runnumber 30
+attr seedset 30
+config description "High Load - Round-Robin Mode (100% more traffic)"
+config *.Junc*.junctionMode "\"roundrobin\""
+config *.EndNW.spawnInterval exponential(200s)
+config *.EndNE.spawnInterval exponential(300s)
+config *.EndEN.spawnInterval exponential(250s)
+config *.EndES.spawnInterval exponential(365s)
+config *.EndSE.spawnInterval exponential(225s)
+config *.EndSW.spawnInterval exponential(250s)
+config *.EndWS.spawnInterval exponential(300s)
+config *.EndWN.spawnInterval exponential(350s)
+config network CrossTraffic
+config sim-time-limit 20000s
+config warmup-period 1000s
+config repeat 50
+config **.scalar-recording true
+config **.vector-recording true
+config *.Junc*.junctionMode "\"queue\""
+config *.EndNW.spawnInterval exponential(800s)
+config *.EndNE.spawnInterval exponential(1200s)
+config *.EndEN.spawnInterval exponential(1000s)
+config *.EndES.spawnInterval exponential(1500s)
+config *.EndSE.spawnInterval exponential(900s)
+config *.EndSW.spawnInterval exponential(1100s)
+config *.EndWS.spawnInterval exponential(1300s)
+config *.EndWN.spawnInterval exponential(1400s)
+
+vector 0 CrossTraffic.JuncNW queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source queueLength
+attr title "Queue Length"
+vector 1 CrossTraffic.JuncNW junctionProcessingTime:vector ETV
+attr recordingmode vector
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+vector 2 CrossTraffic.JuncNW vehicleCount:vector ETV
+attr recordingmode vector
+attr source vehicleCount
+attr title "Vehicle Count"
+vector 3 CrossTraffic.JuncNE queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source queueLength
+attr title "Queue Length"
+vector 4 CrossTraffic.JuncNE junctionProcessingTime:vector ETV
+attr recordingmode vector
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+vector 5 CrossTraffic.JuncNE vehicleCount:vector ETV
+attr recordingmode vector
+attr source vehicleCount
+attr title "Vehicle Count"
+vector 6 CrossTraffic.JuncSE queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source queueLength
+attr title "Queue Length"
+vector 7 CrossTraffic.JuncSE junctionProcessingTime:vector ETV
+attr recordingmode vector
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+vector 8 CrossTraffic.JuncSE vehicleCount:vector ETV
+attr recordingmode vector
+attr source vehicleCount
+attr title "Vehicle Count"
+vector 9 CrossTraffic.JuncSW queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source queueLength
+attr title "Queue Length"
+vector 10 CrossTraffic.JuncSW junctionProcessingTime:vector ETV
+attr recordingmode vector
+attr source junctionProcessingTime
+attr title "Junction Processing Time"
+vector 11 CrossTraffic.JuncSW vehicleCount:vector ETV
+attr recordingmode vector
+attr source vehicleCount
+attr title "Vehicle Count"
+vector 12 CrossTraffic.EndNW travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 13 CrossTraffic.EndNW junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 14 CrossTraffic.EndNW junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 15 CrossTraffic.EndNE travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 16 CrossTraffic.EndNE junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 17 CrossTraffic.EndNE junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 18 CrossTraffic.EndEN travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 19 CrossTraffic.EndEN junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 20 CrossTraffic.EndEN junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 21 CrossTraffic.EndES travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 22 CrossTraffic.EndES junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 23 CrossTraffic.EndES junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 24 CrossTraffic.EndSE travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 25 CrossTraffic.EndSE junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 26 CrossTraffic.EndSE junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 27 CrossTraffic.EndSW travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 28 CrossTraffic.EndSW junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 29 CrossTraffic.EndSW junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 30 CrossTraffic.EndWS travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 31 CrossTraffic.EndWS junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 32 CrossTraffic.EndWS junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+vector 33 CrossTraffic.EndWN travelTime:vector ETV
+attr recordingmode vector
+attr source travelTime
+attr title "Vehicle Travel Time"
+vector 34 CrossTraffic.EndWN junctionTime:vector ETV
+attr recordingmode vector
+attr source junctionTime
+attr title "Total Junction Time per Vehicle"
+vector 35 CrossTraffic.EndWN junctionCount:vector ETV
+attr recordingmode vector
+attr source junctionCount
+attr title "Junctions Visited per Vehicle"
+0	6828 22932 254 5141 1020 19980 1474 0 4 794 1218
+1	29760 7368 270 5146 1080 19990 323 0 89.850342575693 7893.4247346838 406594.18985181
+2	37128 6734 270 5146 1080 19990 323 18132 18694 5951059 109652996105
+3	43862 22474 255 5142 1020 19980 1459 0 3 727 1005
+4	66336 6560 274 5138 1082.841492713646 19950 299 0 89.519512248425 7573.0903727799 402673.9769214
+5	72896 6077 274 5138 1082.841492713646 19950 299 18129 18697 5503480 101306406174
+6	78973 22740 256 5147 1020 19990 1466 0 4 780 1246
+7	101713 6916 256 5143 1020 19980 306 0 88.333081204262 7607.419469761 381815.15580917
+8	108629 6277 256 5143 1020 19980 306 18128 18700 5632407 103681565201
+9	114906 22596 257 5144 1020 19980 1458 0 4 697 1049
+10	137502 7125 283 5144 1120 19980 306 0 89.066854839458 6862.3051368078 329009.63662564
+11	144627 6544 283 5144 1120 19980 306 18128 18698 5635833 103808073847
+12	151171 1974 375 4825 1450 18640 67 200 514.09950309265 24904.078149066 9692553.5666777
+13	153145 1957 375 4825 1450 18640 67 0 132.91986538284 3704.0781490658 290402.0097776
+14	155102 1127 375 4825 1450 18640 67 1 3 145 345
+15	156229 2233 265 5057 1054.980705575149 19640 76 200 526.49422813143 28150.741105995 10891823.636679
+16	158462 2213 265 5057 1054.980705575149 19640 76 0 127.32826444793 4250.7411059949 323846.14335133
+17	160675 1258 265 5057 1054.980705575149 19640 76 1 3 163 381
+18	161933 2115 316 4855 1240 18760 72 200 508.93531017503 25899.192523345 9671682.3702051
+19	164048 2082 316 4855 1240 18760 72 0 135.88576333877 3399.1925233448 249247.39744327
+20	166130 1239 316 4855 1240 18760 72 1 3 153 345
+21	167369 1794 326 5122 1268.680338425841 19870 61 200 524.42593441155 23367.164769867 9241738.0833666
+22	169163 1778 326 5122 1268.680338425841 19870 61 0 135.70006990543 3667.1647698675 303649.2939842
+23	170941 1016 326 5122 1268.680338425841 19870 61 1 3 136 322
+24	171957 2352 302 5148 1195.576055957904 20000 80 200 528.56978325164 29385.329898034 11304556.63008
+25	174309 2319 302 5148 1195.576055957904 20000 80 0 128.56978325164 3785.329898034 296219.25856529
+26	176628 1438 302 5148 1195.576055957904 20000 80 1 3 176 420
+27	178066 1957 315 5067 1236.214322680567 19670 67 200 535.34162256281 25109.429117295 9813783.8897105
+28	180023 1941 315 5067 1236.214322680567 19670 67 0 135.34162256281 3309.4291172953 251515.24699516
+29	181964 1124 315 5067 1236.214322680567 19670 67 1 3 151 363
+30	183088 2081 309 5100 1220 19790 71 225.60584507967 533.8972002404 26340.312011463 10137956.087238
+31	185169 2063 309 5100 1220 19790 71 0 137.54379011567 3840.312011463 302819.66091409
+32	187232 1147 309 5100 1220 19790 71 1 3 154 354
+33	188379 2113 275 5082 1082.856163798047 19720 72 200 508.70334450531 25660.261255637 9634540.3655546
+34	190492 2102 275 5082 1082.856163798047 19720 72 0 117.2991191013 3460.2612556368 241879.28620219
+35	192594 1212 275 5082 1082.856163798047 19720 72 1 3 150 348
+

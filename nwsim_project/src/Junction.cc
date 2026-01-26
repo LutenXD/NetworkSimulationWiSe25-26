@@ -185,10 +185,10 @@ void Junction::processVehicleQueue()
         EV << "Junction " << getName() << ": Vehicle for " << destination 
            << " exiting roundabout to " << outputGate << endl;
     } else {
-        // Continue counter-clockwise in the roundabout
-        outputGate = getCounterClockwiseExit(arrivalGate);
-        EV << "Junction " << getName() << ": Vehicle for " << destination 
-           << " continuing counter-clockwise to " << outputGate << endl;
+          // Choose best next hop towards destination (shortest around the roundabout)
+          outputGate = getBestNextGateTowards(destination, arrivalGate);
+          EV << "Junction " << getName() << ": Vehicle for " << destination 
+              << " moving towards " << outputGate << " (shortest choice)" << endl;
     }
     
     // Calculate exit delay
@@ -317,6 +317,74 @@ std::string Junction::getDirectionFromGate(const std::string& gateName)
     return "unknown";
 }
 
+// Helper: map destination endpoint to its adjacent junction name
+std::string Junction::getJunctionForEndpoint(const std::string& endpoint)
+{
+    if (endpoint == "EndNW" || endpoint == "EndWN") return "JuncNW";
+    if (endpoint == "EndNE" || endpoint == "EndEN") return "JuncNE";
+    if (endpoint == "EndSE" || endpoint == "EndES") return "JuncSE";
+    if (endpoint == "EndSW" || endpoint == "EndWS") return "JuncSW";
+    return "";
+}
+
+// Helper: return the clockwise exit gate from this junction (towards the next junction clockwise)
+std::string Junction::getClockwiseExit(const std::string& arrivalGate)
+{
+    std::string junctionName = getName();
+    // Clockwise mapping opposite of getCounterClockwiseExit
+    if (junctionName == "JuncNW") {
+        return "east$o"; // to JuncNE
+    }
+    else if (junctionName == "JuncNE") {
+        return "south$o"; // to JuncSE
+    }
+    else if (junctionName == "JuncSE") {
+        return "west$o"; // to JuncSW
+    }
+    else if (junctionName == "JuncSW") {
+        return "north$o"; // to JuncNW
+    }
+    return "north$o";
+}
+
+// Helper: choose the shortest next gate (either exit to destination if local, or move clockwise/counter-clockwise)
+std::string Junction::getBestNextGateTowards(const std::string& destination, const std::string& arrivalGate)
+{
+    // If this junction is the destination's exit, return that direct hop
+    if (isExitJunction(destination)) {
+        return getNextHop(destination, arrivalGate);
+    }
+
+    // Determine indices for simplified roundabout order that matches getCounterClockwiseExit
+    std::vector<std::string> order = {"JuncNW", "JuncSW", "JuncSE", "JuncNE"};
+
+    std::string myName = getName();
+    std::string targetJunc = getJunctionForEndpoint(destination);
+    if (targetJunc.empty()) {
+        // Fallback to counter-clockwise
+        return getCounterClockwiseExit(arrivalGate);
+    }
+
+    int myIdx = -1, targetIdx = -1;
+    for (int i = 0; i < (int)order.size(); ++i) {
+        if (order[i] == myName) myIdx = i;
+        if (order[i] == targetJunc) targetIdx = i;
+    }
+    if (myIdx == -1 || targetIdx == -1) {
+        return getCounterClockwiseExit(arrivalGate);
+    }
+
+    int ccwSteps = (targetIdx - myIdx + 4) % 4; // steps moving in order vector direction
+    int cwSteps = (myIdx - targetIdx + 4) % 4;  // steps moving opposite direction
+
+    // If CCW is shorter or equal, move CCW (existing behavior), otherwise move clockwise
+    if (ccwSteps <= cwSteps) {
+        return getCounterClockwiseExit(arrivalGate);
+    } else {
+        return getClockwiseExit(arrivalGate);
+    }
+}
+
 void Junction::processCircleMode(cMessage* msg)
 {
     Vehicle* veh = dynamic_cast<Vehicle*>(msg);
@@ -328,7 +396,7 @@ void Junction::processCircleMode(cMessage* msg)
     veh->setJunctionCount(veh->getJunctionCount() + 1);
     
     // Emit statistics
-    emit(junctionProcessingTimeSignal, 3.0);
+    emit(junctionProcessingTimeSignal, simtime_t(3.0));
     emit(vehicleCountSignal, (long)veh->getVehNumber());
     emit(queueLengthSignal, 0L); // No queue in circle mode
     
@@ -344,10 +412,10 @@ void Junction::processCircleMode(cMessage* msg)
         EV << "Junction " << getName() << ": Vehicle for " << destination 
            << " exiting to destination: " << outputGate << endl;
     } else {
-        // Continue in circular route: SW -> SE -> NE -> NW -> SW
-        outputGate = getCircularRoute(arrivalGate);
+        // In circle mode always move clockwise until reaching the exit
+        outputGate = getClockwiseExit(arrivalGate);
         EV << "Junction " << getName() << ": Vehicle for " << destination 
-           << " continuing circular route to " << outputGate << endl;
+           << " moving clockwise to " << outputGate << endl;
     }
     
     // Send the vehicle after 3 seconds processing time
@@ -398,7 +466,7 @@ void Junction::processRoundRobinMode(cMessage* msg)
         veh->setJunctionCount(veh->getJunctionCount() + 1);
         
         // Emit statistics
-        emit(junctionProcessingTimeSignal, 0.0);
+        emit(junctionProcessingTimeSignal, simtime_t(0.0));
         emit(vehicleCountSignal, (long)veh->getVehNumber());
         // Vehicle can pass immediately
         std::string outputGate;
@@ -410,10 +478,10 @@ void Junction::processRoundRobinMode(cMessage* msg)
             EV << "Junction " << getName() << ": Vehicle from open direction " << direction 
                << " exiting to destination: " << outputGate << endl;
         } else {
-            // Continue counter-clockwise in the roundabout
-            outputGate = getCounterClockwiseExit(arrivalGate);
-            EV << "Junction " << getName() << ": Vehicle from open direction " << direction 
-               << " continuing to " << outputGate << endl;
+                // Choose best next hop towards destination
+                outputGate = getBestNextGateTowards(destination, arrivalGate);
+                EV << "Junction " << getName() << ": Vehicle from open direction " << direction 
+                    << " moving towards " << outputGate << " (shortest choice)" << endl;
         }
         
         // Send immediately (no delay in round-robin for open direction)
@@ -484,10 +552,10 @@ void Junction::processDirectionQueue(const std::string& direction)
             EV << "Junction " << getName() << ": Queued vehicle for " << destination 
                << " exiting to destination: " << outputGate << endl;
         } else {
-            // Continue counter-clockwise in the roundabout
-            outputGate = getCounterClockwiseExit(arrivalGate);
-            EV << "Junction " << getName() << ": Queued vehicle for " << destination 
-               << " continuing to " << outputGate << endl;
+                // Choose best next hop towards destination
+                outputGate = getBestNextGateTowards(destination, arrivalGate);
+                EV << "Junction " << getName() << ": Queued vehicle for " << destination 
+                    << " moving towards " << outputGate << " (shortest choice)" << endl;
         }
         
         // Send immediately (vehicles from queue are processed when their direction opens)

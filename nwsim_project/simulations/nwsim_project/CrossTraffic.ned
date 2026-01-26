@@ -13,11 +13,11 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
-// package declaration removed to match directory loading
+package simulations.nwsim_project;
 
 import ned.DelayChannel;
-import nwsim_project.Junction;
-import nwsim_project.Endpoint;
+import src.Junction;
+import src.Endpoint;
 
 network CrossTraffic
 {
